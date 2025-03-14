@@ -70,12 +70,12 @@ const createGallery = images
     .map(({ preview, original, description }) => `
         <li class="gallery-item">
             <a class="gallery-link" href="${original}">
-            <img
-            class="gallery-image"
-            src="${preview}"
-            data-source="${original}"
-            alt="Image ${description}"
-            />
+                <img
+                    class="gallery-image"
+                    src="${preview}"
+                    data-source="${original}"
+                    alt="${description}"
+                />
             </a>
         </li>
     `).join('');
@@ -88,13 +88,16 @@ gallery.addEventListener('click', (event) => {
     if (event.target.nodeName !== 'IMG') return;
 
     const largeImageURL = event.target.dataset.source;
-    const largeImageAlt = event.target.dataset.alt;
+    const imageObj = images.find(img => img.original === largeImageURL);
 
     const instance = basicLightbox.create(`
-        <img src="${largeImageURL}" alt="${largeImageAlt}" width="1112" height="640"/>
+        <img 
+            src="${largeImageURL}" 
+            alt="${imageObj.description}" 
+            width="1112" 
+            height="640"
+        />
     `);
 
     instance.show();
 });
-
-
